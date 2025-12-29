@@ -1,0 +1,42 @@
+/*
+  Aufgaben mit ! erfordern ggfs. das eigenständige Nachschlagen in der 
+  Onlinehilfe.
+  Tragen Sie die Ergebnisse unter den Aufgaben ein und dokumentieren Sie 
+  ggfs. Besonderheiten
+  Alle Aufgaben ohne ! sollten Sie in 60 Minuten vollständig lösen können
+*/ 
+
+-- A Tabelle Vorlesungen 
+-- 1. Geben Sie alle Titel aufsteigend sortiert aus.
+-- 2. Wie lautet der Titel der Vorlesung Nr. 5001? 
+-- !3. Wie viele Vorlesungen gibt es?
+-- 4. Welche Vorlesungen haben genau 4 SWS? 
+-- 5. Welche Vorlesungen haben im Titel das Wort "Wissen"?
+-- 6. Geben Sie alle Vorlesungen mit 10-ner Stelle 5 aus.
+-- !7. Geben Sie Vorlesungen sortiert nach der Länge des Titels aus.
+-- 8. Welche Vorlesungsbezeichnungen bestehen aus genau einem Wort?
+-- 9. Geben Sie die 3 Vorlesungen mit den größten Nummern aus. 
+   
+-- B Tabelle Professoren 
+-- 1. Erzeugen Sie die Liste aller Professoren (Name, PersNr), alphabetisch sortiert.
+-- 2. Geben Sie alle Namen der Professoren vom Rang C3 aus.
+-- 3. Welche Professoren haben ihre Personalnummer im Bereich 2130 – 2150? 
+-- 4. Welche Professoren haben in ihrem Namen "s" oder "pp"? 
+-- 5. Erzeugen Sie die Liste aller Professoren (Name, Rang), 
+--    nach Rang absteigend und alphabetisch aufsteigend sortiert.
+-- !6. Wie viele Professoren sind bei uns tätig?
+-- !7. Geben Sie den Raum des Professors mit dem kürzesten Namen aus.
+   
+-- C Tabelle Studenten 
+-- !1. Listen Sie alle Studierenden auf, nach Semster "gruppiert" 
+--  und innerhalb des Semesters alphabetisch sortiert! 
+-- 2. Wer hat die Matrikelnummer 26830? 
+-- 3. Wessen Name fängt mit T an im 2. Semester? 
+-- 4. Wie viele Studierende gibt es mit "Sch" im Namen? 
+-- !5. Wie viele studieren im 1., 3. und 5. Semester insgesamt? 
+-- 6. Wer studiert im 10. Semester oder höher?
+-- !7. Erzeugen Sie eine Liste mit den ersten 2 Buchstaben jedes Namens
+-- !8. Geben Sie die Studierenden absteigend sortiert nach der Länge des Namens aus
+   
+-- D Prüfen
+-- !1. Ermitteln Sie die beste, schlechteste und die Durchschnittsnote
