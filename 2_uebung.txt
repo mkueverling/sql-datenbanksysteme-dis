@@ -1,0 +1,25 @@
+/* 
+    Aufgaben mit ! erfordern das Nachschlagen in der Onlinehilfe
+    Tragen Sie die Ergebnisse unter den Aufgaben ein und dokumentieren Sie
+    ggfs. Besonderheiten
+*/
+
+-- Mehrere Tabellen abfragen
+-- 1. Listen Sie alle Vorlesungen und die Namen der Professoren, die sie lesen, auf.
+-- 2. Wie viele Professoren halten Vorlesungen?
+-- 3. Welche Professoren halten keine Vorlesungen?
+-- 4. Wie viele Vorlesungen liest der Professor mit der Personalnr. 2137
+-- 5. Welche Vorlesungen hält Prof. Kant?
+-- 6. Wie viele SWS hat Prof. Russel im Semester?
+-- 7. Ermitteln Sie alle Professoren mit einer SWS>2 
+-- 8. Welche Assistenten hat Prof. Sokrates?
+-- 9. Wie viele Assistenten hat Prof. Kopernikus?
+-- 10. Welche Vorlesungen (VorlNr) hat Zuhörer?
+-- 11. Bei wem hatte Frau Carnap ihre Prüfung mit Note 1?
+-- 12. Welche Note hat Frau Carnap in der Vorlesung Grundzüge?
+-- 13. Ermitteln Sie die Voraussetzungen für alle Vorlesungen mit einem "th" im Titel
+-- 14. Listen Sie die Voraussetzungen zu den Vorlesungen Erkenntnistheorie und Wissenschaftstheorie auf
+-- Für später oder für die, die schon mal "group by" versuchen möchten!
+-- 15. Wie viele Assistenten hat JEDER Prof?
+-- 16. Ermitteln Sie die durchschnittliche Semesterzahl der Anwesenden je Vorlesung
+-- 17. Ermitteln Sie die durchschnittliche Semesterzahl der Hörer je Professor

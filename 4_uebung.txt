@@ -1,0 +1,117 @@
+
+
+/*
+  Aufgaben mit ! erfordern das Nachschlagen in der Onlinehilfe
+  Tragen Sie die Ergebnisse unter den Aufgaben ein und dokumentieren Sie
+  ggfs. Besonderheiten
+*/
+
+-- A Mehrere Tabellen abfragen (in der TH-Datenbank)
+-- 1. Gruppieren Sie alle Räume nach Erdgeschoss, 1. Etage, 2. Etage und 3. Etage und darüber
+-- 2. Jeder Student möchte zur Sprechstunde gehen. Wer muss in die 1.Etage usw. gehen?
+--    Hinweis: Bauen Sie das select-Statement der Reihe nach auf und bilden Sie sinnvolle Zwischenabfragen
+
+-- B Datumswerte und ein paar statistische Auswertungen
+-- Spielen Sie das unten angegebene Skript in Ihre TH-Datenbank ein. 
+-- 1. Listen Sie alle Montage aus Juli 2023 auf.
+-- 2. Welche Jahre starteten am Montag?
+-- 3. Wie viele Freitage, den 13. gibt es in diesem Jahrhundert?
+-- 4. Wie verteilen sich die 13. jedes Monats über das 20. und 21. Jahrhundert auf die Wochentage?
+-- 5. Erstellen Sie eine Häufigkeitsverteilung der verschiedenen Wochentage in 2019.
+-- 6. !In welchen anderen Jahren verhalten sich die Wochentage mengenmäßig wie in 2019?
+-- 7. Auf welche Wochentage fällt der 29.02. zwischen 1900 und 2100
+-- 8. Wie oft ist der 27.12. ein Brückentag zwischen 1900 und 2100?
+-- 9. Wie viele Tage liegen zwischen heute und dem 01.01.1900?
+-- 10. Welches Datum liegt genau zwischen heute und dem 24.12.2100?
+-- 11. Denken Sie sich 5 interessante Fragen selber aus.
+--     z.B.: Wie verteilen Sich die Wochentage meiner Geburtstage (z.B. wenn Sie 90 Jahre alt werden)
+
+/* Beispiel zum Thema index: Können Sie erklären, was ein Index macht?
+
+-- Analysieren Sie die folgenden Zeilen Code
+print convert(varchar(30),getdate(),25)
+declare @i int = 500,
+  @d date
+while @i>0 begin
+  select @d=Date from Datumswerte
+    where ID=20191105
+  set @i-=1
+end
+print convert(varchar(30),getdate(),25)
+
+create index d1 on Datumswerte(ID)
+drop index d1 on Datumswerte
+*/
+
+-- Skript erstellt Tabelle Datumswerte 
+CREATE TABLE [dbo].[Datumswerte](
+	[ID] [int] NOT NULL,
+	[Date] [date] NOT NULL,
+	[DayOfWeek] [smallint] NULL,
+	[DayOfMonth] [smallint] NULL,
+	[WeekDayOccOfMonth] [smallint] NULL,
+	[DayOfYear] [smallint] NULL,
+	[PreviousDay] [date] NULL,
+	[NextDay] [date] NULL,
+	[WeekOfYear] [smallint] NULL,
+	[IsoYear] [smallint] NULL,
+	[LastDayOfMonth] [bit] NULL,
+	[LastOccOfMonth] [bit] NULL,
+	[MonthOfYear] [smallint] NULL,
+	[QuarterOfYear] [smallint] NULL,
+	[Year] [smallint] NULL,
+	[Period] [int] NULL,
+	[IsoWeekOfYear] [smallint] NULL)
+GO
+truncate table [Datumswerte]
+-- Datumsdimensionstabelle mit Daten befüllen
+declare @From date='19000101',
+        @To   date='21501231';
+-- cte ergibt 100.000 Datenzeilen -> Datumswerte für ca. 270 Jahre
+with cteSmall as (
+  select ID=0 union select ID=1 union select ID=2 union select ID=3 union select ID=4 union select ID=5 union select ID=6 union select ID=7 union select ID=8 union select ID=9
+), cteBig as (
+  select Tenthousands.ID * 10000 + thousands.ID * 1000 + hundreds.ID * 100 + tens.ID * 10 + ones.ID as ID
+    from cteSmall Tenthousands, cteSmall thousands, cteSmall hundreds, cteSmall tens, cteSmall ones
+)
+insert into [Datumswerte] (ID, [Date])
+  select cte.ID, cte.[Date]
+    from (
+      select 
+          ID=convert(int, convert(char(10),dateadd(day, cte.ID,  @From),112)),
+          [Date]=convert(date,dateadd(day, cte.ID,  @From),112)
+        from cteBig cte
+        where dateadd(day, cte.ID,  @From) between @From and @To) cte
+    left outer join Datumswerte dd
+      on cte.ID = dd.ID
+    where dd.ID is null
+    order by 1;
+
+-- Hilfsfelder in Datumsdimensionstabelle berechnen
+set datefirst 1 -- Montag als ersten Tag der Woche festlegen. Wichtig für datepart(dw)
+update d set
+    [DayOfWeek] = datepart(weekday, [Date]),
+    [DayOfMonth] = day([Date]),
+    [DayOfYear] = datepart(dy,[Date]),
+    WeekdayOccOfMonth = WeekdayOccOfMonthNew,
+    PreviousDay = dateadd(day, -1, [Date]),
+    NextDay = dateadd(day, 1, [Date]),
+    WeekOfYear = datepart(wk,[Date]),
+    IsoWeekOfYear=datepart(isowk,[Date]), -- isowk=1. Woche ist die Woche mit dem ersten Donnerstag im Jahr
+    IsoYear=year([Date])+case
+                            when datepart(isowk,[Date])=1 and month([Date])=12 then 1 
+                            when datepart(isowk,[Date])>50 and month([Date])=1 then -1 
+                            else 0 
+                          end,
+    MonthOfYear = month([Date]),
+    LastDayOfMonth = case when month(dateadd(day, 1, [Date]))<>month([Date]) then 1 else 0 end,
+    LastOccOfMonth = LastOccOfMonthNew, 
+    QuarterOfYear = datepart(q, [Date]),
+    [Year] = year([Date]),
+    Period = year([Date])*1000+month([Date])
+  from (
+    select 
+        *,
+        WeekdayOccOfMonthNew = row_number() over(partition by year([Date])*1000+month([Date]),datepart(weekday, [Date]) order by ID),
+        LastOccOfMonthNew = case when row_number() over(partition by year([Date])*1000+month([Date]),datepart(weekday, [Date]) order by ID) = max(WeekdayOccOfMonth) over(partition by year([Date])*1000+month([Date]),datepart(weekday, [Date])) then 1 else 0 end
+      from Datumswerte) d

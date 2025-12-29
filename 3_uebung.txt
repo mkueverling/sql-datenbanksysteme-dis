@@ -1,0 +1,28 @@
+1. KFZ-Zulassung
+
+Eine KFZ-Zulassungsstelle in einem Landkreis möchte Informationen über die bei ihr
+zugelassenen KFZ und ihre Eigentümer speichern. Dabei interessieren folgende
+Informationen:
+
+    Von den Eigentümern der KFZ werden Name, Vorname, Geburtsdatum und die Postanschrift mit Straße, Ort und PLZ benötigt.
+    Von den zugelassenen Fahrzeugen wird die Fahrgestellnummer und das Baujahr verzeichnet.
+    Außerdem werden die Fahrzeuge in Typklassen eingeordnet. Jeder Fahrzeugtyp hat einen Typcode, die Angabe des Herstellers, des Modells und der Schadstoffklasse.
+    Bei der Zulassung eines Fahrzeugs wird das Kennzeichen vergeben. Die Zulassung findet zu einem bestimmten Datum statt. Ein Fahrzeug kann auch abgemeldet werden, dann wird das Abmeldedatum verzeichnet. Ein Fahrzeug kann erst einen Tag nach der Zulassung wieder abgemeldet werden.
+
+Erstellen Sie ein Entity-Relationship-Diagramm, das die beschriebene Struktur darstellt.
+2. Miles & More
+
+Eine Fluggesellschaft speichert die Buchungen ihrer Passagiere und verwendet die Informationen auch für das Prämienprogramm „Miles & More“ für ihre „Frequent Flyers“.
+
+In dieser Aufgabe modellieren Sie einen Ausschnitt dieses Systems in einem Entity-Relationship-Diagramm.
+
+    Ein Flugzeug hat einen bestimmten Typ, wie z. B. „A340-400“, ein Kennzeichen, das es identifiziert, wie „D-AGHT“, ein Baujahr und eine Anzahl von Sitzplätzen.
+    Flugzeuge legen Flugstrecken zurück. Jede Flugstrecke hat eine Flugnummer, wie z. B. „LH 353“. Die Flugnummer bezeichnet den Flug der Flugstrecke mitsamt seiner Abflugzeit. Der Flug der Strecke wird somit durch die Flugnummer und den Tag der Flugs eindeutig festgelegt.
+    Flugstrecken führen von einem Startflughafen zu einem Zielflughafen, haben eine bestimmte Dauer und eine bestimmte Strecke in Meilen.
+    Passagiere haben einen Namen und Vornamen. Sie buchen Flugstrecken.
+    Frequent Flyers sind Passagiere, die häufig fliegen und am Prämienprogramm teilnehmen. Sie haben ein Meilenkonto mit einer eindeutigen Kontonummer. Über jeden Frequent Flyer ist bekannt, wie viele Prämienmeilen er bisher angesammelt hat.
+
+3. Rechnungsverwaltung
+
+Ein Handelsunternehmen möchte seine Kundenrechnungen in einer Datenbank erfassen. Erstellen Sie ein Entity-Relationship-Diagramm.
+
